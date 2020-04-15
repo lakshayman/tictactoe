@@ -37,11 +37,23 @@ class Board extends React.Component {
       />;
   }
 
-  render() {
+  checksq(){
+    let squares = this.state.squares.slice();
+    for(let i = 0;i<squares.length;i++){
+      if(squares[i] == null){
+        return true;
+      }
+    }
+    return false;
+  }
 
+  render() {
     const winner = calculateWinner(this.state.squares);
     let status;
-    if(winner) {
+    if(!winner && !this.checksq()){
+      status = "Game Drawn";
+    }
+    else if(winner) {
       status = 'Winner: ' + winner;
     }else{
       status = 'Next Player: ' + (this.state.xIsNext ? 'X' : 'O');
